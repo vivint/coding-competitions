@@ -1,0 +1,18 @@
+(lam int (lam int int))
+(lam int (lam int int))
+(lam int int)
+bool
+bool
+(lam (lam a0 a1) (lam (lam a2 a0) (lam a2 a1)))
+(lam (lam a0 a1) (lam (lam a2 a0) (lam (lam a3 a2) (lam a3 a1))))
+a0
+int
+(lam int (lam int int))
+(lam int (lam int int))
+(lam int int)
+int
+int
+(lam (lam a0 (lam a1 a2)) (lam a1 (lam a0 a2)))
+(lam a0 (lam a1 a1))
+int
+int

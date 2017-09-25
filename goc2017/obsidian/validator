@@ -1,0 +1,25 @@
+#!/usr/bin/python
+
+import os, sys, shutil, threading
+
+name = os.path.basename(sys.argv[0])
+if not name.endswith(".validator"):
+  sys.exit(1)
+test = name[:-len(".validator")]
+
+def stdin():
+  shutil.copyfileobj(
+    file(os.path.join(os.path.dirname(sys.argv[0]), "%s.in" % test)),
+    sys.stdout, 32768)
+  sys.stdout.flush()
+  os.close(1)
+
+t = threading.Thread(target=stdin)
+t.start()
+
+if (file(os.path.join(
+    os.path.dirname(sys.argv[0]), "%s.out" % test)).read().strip() !=
+    sys.stdin.read().strip()):
+  sys.exit(1)
+
+t.join()

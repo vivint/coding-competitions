@@ -1,0 +1,6 @@
+2
+true
+lam x x
+app (lam x x) 2
+app lam x (x) 2
+add

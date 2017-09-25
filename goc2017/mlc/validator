@@ -1,0 +1,40 @@
+#!/usr/bin/python
+
+import os, sys, shutil, threading
+
+name = os.path.basename(sys.argv[0])
+if not name.endswith(".validator"):
+  sys.exit(1)
+test = name[:-len(".validator")]
+
+def stdin():
+  shutil.copyfileobj(
+    file(os.path.join(os.path.dirname(sys.argv[0]), "%s.in" % test)),
+    sys.stdout, 32768)
+  sys.stdout.flush()
+  os.close(1)
+
+t = threading.Thread(target=stdin)
+t.start()
+
+expected_labels = file(os.path.join(
+    os.path.dirname(sys.argv[0]), "%s.out" % test)).read().strip().split()
+actual_labels = sys.stdin.read().strip().split()
+
+if len(expected_labels) != len(actual_labels):
+  sys.exit(1)
+
+accuracy = (reduce(lambda x, y: x + y,
+                   map(lambda x: int(x[0] == x[1]),
+                       zip(expected_labels, actual_labels))) /
+            float(len(expected_labels)))
+
+matched = 0
+for expected, actual in zip(expected_labels, actual_labels):
+  if expected == actual:
+    matched += 1
+
+if accuracy < .7:
+  sys.exit(1)
+
+t.join()

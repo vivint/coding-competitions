@@ -1,0 +1,18 @@
+lam x app add (app app add x 1)
+app lam addOne lam x app add (app addOne x) (app add 1)
+app app lam addOne lam x app add (app addOne x) (app add 1) 5
+app app app if (app app gt 0 0) true false
+app lam b app b true (lam v app app app if v true false)
+lam f lam g lam x app f app g x
+lam f lam g lam h lam x app f app g app h x
+app fix lam x x
+app fix (lam rec 0)
+lam a lam b app app fix (lam rec lam c app app app if (app app gt (app app add b c) a) c (app rec (app app add c 1))) 0
+app lam sub (lam a lam b app app fix (lam rec lam c app app app if (app app gt c 0) (0) (app app add b (app rec (app app sub c 1)))) a) (lam a lam b app app fix (lam rec lam c app app app if (app app gt (app app add b c) a) c (app rec (app app add c 1))) 0)
+app app lam sub lam mul app fix (lam rec lam n (app app app if (app app gt n 0) 1 (app app mul n (app rec (app app sub n 1))))) (lam a lam b app app fix (lam rec lam c app app app if (app app gt (app app add b c) a) c (app rec (app app add c 1))) 0) (app lam sub (lam a lam b app app fix (lam rec lam c app app app if (app app gt c 0) (0) (app app add b (app rec (app app sub c 1)))) a) (lam a lam b app app fix (lam rec lam c app app app if (app app gt (app app add b c) a) c (app rec (app app add c 1))) 0))
+app (lam f (app app add (app f 1) (app f 2))) (lam x 1)
+999999999999999999999999999999999999999999999999999999999999999
+lam f lam a lam b app app f b a
+lam a lam b b
+app app lam fi lam fb app app add (app fi 1) (app fb true) (lam x 1) (lam x 1)
+app app lam fi lam fb app app add (app app (lam x x) fi 1) (app app (lam x x) fb true) (lam x 1) (lam x 1)

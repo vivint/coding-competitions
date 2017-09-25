@@ -1,0 +1,4 @@
+app app lam a lam b a 1 2
+app app lam a lam b b 1 2
+app app app app if true lam x 5 lam x 4 1
+app lam add (app app add 2 2) (lam a lam b 5)

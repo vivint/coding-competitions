@@ -1,0 +1,62 @@
+#!/usr/bin/python
+
+import os, sys, shutil, threading
+
+name = os.path.basename(sys.argv[0])
+if not name.endswith(".validator"):
+  sys.exit(1)
+test = name[:-len(".validator")]
+
+input_path = os.path.join(os.path.dirname(sys.argv[0]), "%s.in" % test)
+
+def stdin():
+  shutil.copyfileobj(file(input_path), sys.stdout, 32768)
+  sys.stdout.flush()
+  os.close(1)
+
+t = threading.Thread(target=stdin)
+t.start()
+
+def input(fh):
+  for line in fh:
+    line = line.strip()
+    if line:
+      yield line
+
+test_input = input(file(input_path))
+caps = map(int, next(test_input).split())
+
+car_to_floor = {}
+for line in input(sys.stdin):
+  car, floor = line.split()
+  car = int(car)
+  if car in car_to_floor:
+    print >>sys.stderr, "car output twice"
+    sys.exit(1)
+  car_to_floor[car - 1] = int(floor) - 1
+
+arrivals_by_day = {}
+departures_by_day = {}
+for car_id, (arrival, stay) in enumerate(line.split() for line in test_input):
+  arrival, stay = int(arrival), int(stay)
+  if arrival not in arrivals_by_day:
+    arrivals_by_day[arrival] = []
+  arrivals_by_day[arrival].append(car_to_floor[car_id])
+  departure = arrival + stay - 1
+  if departure not in departures_by_day:
+    departures_by_day[departure] = []
+  departures_by_day[departure].append(car_to_floor[car_id])
+
+floors = [0 for _ in caps]
+for day in sorted([k for k in arrivals_by_day.keys()
+                   if k not in departures_by_day] +
+                  departures_by_day.keys()):
+  for floor in arrivals_by_day.get(day, []):
+    floors[floor] += 1
+    if floors[floor] > caps[floor]:
+      print >>sys.stderr, "floor capacity exceeded"
+      sys.exit(1)
+  for floor in departures_by_day.get(day, []):
+    floors[floor] -= 1
+
+t.join()

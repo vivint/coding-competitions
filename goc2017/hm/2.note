@@ -1,0 +1,4 @@
+This one is tricky:
+    - Be sure you handle arbitrarily large integers.
+    - It contains a definition of function composition, const, and flip.
+    - Be careful about the type variables you have in your initial environment.

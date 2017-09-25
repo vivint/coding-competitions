@@ -1,0 +1,8 @@
+add
+gt
+if
+fix
+app add 0
+app gt 0
+app app if true 1
+app app lam x x lam x x 2

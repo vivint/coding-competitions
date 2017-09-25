@@ -1,0 +1,8 @@
+Imagine two messages:
+
+Hello there, friendly neighbor!
+Hello there, enemy!
+
+Both messages share a common prefix. If you're given the id for
+"friendly", your message should start with "Hello" and end with
+"neighbor."

@@ -1,0 +1,5 @@
+2
+app (lam x x) 2
+app lam x (x) 2
+app app add 1 3
+app app app if (app app gt 3 1) 10 5

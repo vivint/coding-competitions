@@ -1,0 +1,6 @@
+int
+bool
+(lam a0 a0)
+int
+int
+(lam int (lam int int))
